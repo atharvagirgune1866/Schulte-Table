@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schulte Table Brain Trainer</title>
+  <meta name="description" content="Train your peripheral vision and focus with Schulte tables." />
+  <meta name="theme-color" content="#5b5bf0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>🧠 Schulte Trainer</h1>
+    <div class="top-actions">
+      <button id="soundBtn" class="icon-btn" title="Toggle sound">🔊</button>
+      <button id="themeBtn" class="icon-btn" title="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <div class="badge-row"><span id="modeBadge" class="badge off">● Checking…</span></div>
+
+  <main class="layout">
+    <!-- ===================== GAME PANEL ===================== -->
+    <section class="card game">
+      <div class="controls">
+        <label class="field">
+          <span>Name</span>
+          <input id="nameInput" maxlength="20" placeholder="Enter your name" />
+        </label>
+
+        <div class="field">
+          <span>Grid</span>
+          <div class="seg" id="sizeSeg">
+            <button data-size="3">3×3</button>
+            <button data-size="4">4×4</button>
+            <button data-size="5" class="active">5×5</button>
+            <button data-size="6">6×6</button>
+            <button data-size="7">7×7</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span>Mode</span>
+          <div class="seg" id="modeSeg">
+            <button data-mode="classic" class="active" title="Find 1 → N">Classic</button>
+            <button data-mode="reverse" title="Find N → 1">Reverse</button>
+            <button data-mode="shuffle" title="Grid reshuffles after every correct tap">Shuffle</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud">
+        <div class="stat"><small>Time</small><b id="timer">0.00</b></div>
+        <div class="stat target"><small>Find</small><b id="target">1</b></div>
+        <div class="stat"><small>Mistakes</small><b id="mistakes">0</b></div>
+        <div class="stat"><small>Progress</small><b id="progress">0%</b></div>
+      </div>
+
+      <div class="bar"><div id="barFill"></div></div>
+
+      <div class="board-wrap">
+        <div id="board" class="board" aria-label="Schulte table"></div>
+        <div id="startOverlay" class="overlay">
+          <p>Keep your eyes on the centre dot and use your peripheral vision.</p>
+          <button id="startBtn" class="primary">Start</button>
+          <small>Timer starts on your first tap · Wrong tap = +2s</small>
+        </div>
+      </div>
+
+      <div class="row-btns">
+        <button id="restartBtn">↻ New grid</button>
+        <label class="toggle"><input type="checkbox" id="dotToggle" checked /> Focus dot</label>
+      </div>
+    </section>
+
+    <!-- ===================== SIDE PANEL ===================== -->
+    <aside class="side">
+      <section class="card">
+        <h2>🏆 Leaderboard <small id="lbLabel"></small></h2>
+        <table class="table" id="lbTable">
+          <thead><tr><th>#</th><th>Name</th><th>Time</th><th>Err</th><th>Score</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h2>📈 My progress</h2>
+        <canvas id="chart" width="360" height="160"></canvas>
+        <div id="myStats" class="my-stats"></div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- ===================== RESULT MODAL ===================== -->
+  <dialog id="resultDlg">
+    <h2 id="resTitle">🎉 Finished!</h2>
+    <div class="res-grid">
+      <div><small>Time</small><b id="resTime"></b></div>
+      <div><small>Mistakes</small><b id="resMist"></b></div>
+      <div><small>Final score</small><b id="resScore"></b></div>
+      <div><small>Rank</small><b id="resRank"></b></div>
+    </div>
+    <p id="resInsight" class="insight"></p>
+    <canvas id="splitChart" width="420" height="140"></canvas>
+    <form method="dialog" class="row-btns">
+      <button id="againBtn" class="primary" value="again">Play again</button>
+      <button value="close">Close</button>
+    </form>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

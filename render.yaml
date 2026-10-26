@@ -1,0 +1,11 @@
+# One-click backend deploy on Render (free tier). Data resets on redeploy
+# unless you attach a disk or switch SCHULTE_DB to a hosted database.
+services:
+  - type: web
+    name: schulte-trainer
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: CORS_ORIGIN
+        value: "*"
